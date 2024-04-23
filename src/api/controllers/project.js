@@ -8,14 +8,11 @@ const { dataPerPage } = require("../../utils/variables/pagination");
 const Project = require("../models/project");
 const User = require("../models/user");
 
-//TODO: paginación perfecta - al filtrar proyectos que cambie la última página y el total de documentos que hay.
-//TODO: filterProyects - getProjects - ordenación FECHA
-
 const getProjects = async (req, res, next) => {
   try {
     const { page = 1 } = req.query;
 
-    const { total, lastPage } = await getPaginationInfo(Project);
+    const { total, lastPage } = await getPaginationInfo({ Model: Project });
 
     if (page > lastPage) {
       return res.status(400).json({
@@ -31,7 +28,8 @@ const getProjects = async (req, res, next) => {
 
     const projects = await Project.find()
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
-      .limit(dataPerPage);
+      .limit(dataPerPage)
+      .sort({ createdAt: "desc"});
 
     return res.status(200).json({
       info: getInfo({
@@ -50,7 +48,6 @@ const getProjects = async (req, res, next) => {
 const filterProjects = async (req, res, next) => {
   try {
     const { page = 1 } = req.query;
-    const { total, lastPage } = await getPaginationInfo(Project);
 
     const query = {
       name_user: { $regex: req.query.name || "", $options: "i" },
@@ -61,9 +58,15 @@ const filterProjects = async (req, res, next) => {
       query.type = req.query.type;
     }
 
+    const { total, lastPage } = await getPaginationInfo({
+      Model: Project,
+      query
+    });
+
     const projects = await Project.find(query)
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
-      .limit(dataPerPage);
+      .limit(dataPerPage)
+      .sort({ createdAt: "desc"});
 
     let queryParams = ``;
 
