@@ -18,8 +18,7 @@ const projectSchema = new mongoose.Schema(
       },
     ],
     average_rating: { type: Number, required: true },
-    /* comments: [{ type: mongoose.Types.ObjectId, ref: "comments" }], */
-    comments: [{ type: String }],
+    comments: [{ type: mongoose.Types.ObjectId, ref: "comments" }],
     user: { type: mongoose.Types.ObjectId, ref: "users", required: true },
   },
   {
