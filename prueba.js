@@ -14,3 +14,10 @@ console.log(diferenciaMilisegundos); */
 }
 
 console.log(objeto.name?.slice(3, 6)); */
+
+
+/* const funcion = (...args) => {
+    
+}
+
+funcion(34, 34, 65, 76, 23) */

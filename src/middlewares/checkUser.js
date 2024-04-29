@@ -8,14 +8,14 @@ const checkUser = (req, res, next) => {
   }
 };
 
-const isProjectUser = async (req, res, next) => {
+const isDataUser = async (req, res, next, Model) => {
   const { id } = req.params;
 
-  const project = await Project.findById(id);
+  const data = await Model.findById(id);
   
   if (
     req.user.rol !== "admin" &&
-    req.user._id.toString() !== project.user.toString()
+    req.user._id.toString() !== data.user.toString()
   ) {
     return res.status(400).json("No puedes realizar esta acción");
   } else {
@@ -23,4 +23,4 @@ const isProjectUser = async (req, res, next) => {
   }
 };
 
-module.exports = { checkUser, isProjectUser };
+module.exports = { checkUser, isDataUser };

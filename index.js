@@ -15,6 +15,10 @@ app.use(cors());
 
 app.use("/api/v1", mainRouter);
 
+app.use("*", (req, res, next) => {
+    return res.status(404).json("Route Not Found");
+})
+
 app.listen(3000, () => {
     console.log("Levantado en http://localhost:3000");
 })

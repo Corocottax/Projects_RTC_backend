@@ -29,7 +29,7 @@ const getProjects = async (req, res, next) => {
     const projects = await Project.find()
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
       .limit(dataPerPage)
-      .sort({ createdAt: "desc"});
+      .sort({ createdAt: "desc" });
 
     return res.status(200).json({
       info: getInfo({
@@ -60,13 +60,13 @@ const filterProjects = async (req, res, next) => {
 
     const { total, lastPage } = await getPaginationInfo({
       Model: Project,
-      query
+      query,
     });
 
     const projects = await Project.find(query)
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
       .limit(dataPerPage)
-      .sort({ createdAt: "desc"});
+      .sort({ createdAt: "desc" });
 
     let queryParams = ``;
 
@@ -98,6 +98,7 @@ const getProjectById = async (req, res, next) => {
     const project = await Project.findById(id).populate(
       "comments rating.user user"
     );
+
     return res.status(200).json(project);
   } catch (error) {
     return res.status(400).json("error");

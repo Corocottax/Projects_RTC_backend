@@ -2,6 +2,7 @@ const getInfo = ({ total, lastPage, page, endpoint, queryParams = "" }) => {
   return {
     count: total,
     pages: lastPage,
+    currentPage: page,
     next:
       page + 1 > lastPage
         ? null
