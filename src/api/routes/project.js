@@ -9,10 +9,12 @@ const {
   updateProject,
   deleteProject,
   addInteraction,
+  getBestProjects,
 } = require("../controllers/project");
 const Project = require("../models/project");
 const projectRouter = require("express").Router();
 
+projectRouter.get("/bestprojects", getBestProjects);
 projectRouter.get("/filter", filterProjects);
 projectRouter.get("/:id", getProjectById);
 projectRouter.get("/", getProjects);

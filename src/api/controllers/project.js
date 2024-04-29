@@ -7,6 +7,24 @@ const {
 const { dataPerPage } = require("../../utils/variables/pagination");
 const Project = require("../models/project");
 const User = require("../models/user");
+const moment = require("moment");
+
+const getBestProjects = async (req, res, next) => {
+  try {
+    const today = moment();
+    const thirtyDaysAgo = today.clone().subtract(30, "days");
+
+    const projects = await Project.find({
+      createdAt: { $gte: thirtyDaysAgo, $lte: today },
+    })
+      .sort({ average_rating: "desc" })
+      .limit(3);
+
+    return res.json(projects);
+  } catch (error) {
+    return res.status(400).json("error");
+  }
+};
 
 const getProjects = async (req, res, next) => {
   try {
@@ -215,6 +233,7 @@ const deleteProject = async (req, res, next) => {
 };
 
 module.exports = {
+  getBestProjects,
   getProjects,
   filterProjects,
   getProjectById,
