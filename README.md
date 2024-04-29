@@ -77,20 +77,20 @@ npm run dev
 ### Endpoints Projects
 
 | NAME              | METHOD | ENDPOINT               | QUERY PARAMS             | AUTH | BODY | CONTENT-TYPE | RESPONSE               |
-| ----------------- | ------ | ---------------------- | ------------------------ | ---- | ---- | ------------ | ---------------------- | --- |
+| ----------------- | ------ | ---------------------- | ------------------------ | ---- | ---- | ------------ | ---------------------- |
 | GET PROJECTS      | GET    | /projects              | page                     | ---  | ---  | ---          | { info, [ projects ] } |
 | GET PROJECT BY ID | GET    | /projects/:id          | ---                      | ---  | ---  | ---          | { project }            |
 | GET BEST PROJECTS | GET    | /projects/bestprojects | ---                      | ---  | ---  | ---          | [ projects ]           |
 | FILTER PROJECTS   | GET    | /projects/filter       | page, type, name, rating | ---  | ---  | ---          | { info, [ projects ] } |
 | CREATE PROJECT    | POST   | ---                    | ---                      | ---  | ---  | ---          | ---                    |
-| MODIFY PROJECT    | PUT    | ---                    | ---                      | ---  | ---  | ---          | ---                    | --- |
-| ADD INTERACTION   | PUT    | ---                    | ---                      | ---  | ---  | ---          | ---                    | --- |
-| DELETE PROJECT    | DELETE | ---                    | ---                      | ---  | ---  | ---          | ---                    | --- |
+| MODIFY PROJECT    | PUT    | ---                    | ---                      | ---  | ---  | ---          | ---                    |
+| ADD INTERACTION   | PUT    | ---                    | ---                      | ---  | ---  | ---          | ---                    |
+| DELETE PROJECT    | DELETE | ---                    | ---                      | ---  | ---  | ---          | ---                    |
 
 ### Endpoints Comments
 
 | NAME            | METHOD | ENDPOINT | QUERY PARAMS | AUTH | BODY | CONTENT-TYPE | RESPONSE |
-| --------------- | ------ | -------- | ------------ | ---- | ---- | ------------ | -------- | --- |
+| --------------- | ------ | -------- | ------------ | ---- | ---- | ------------ | -------- |
 | PUBLISH COMMENT | POST   | ---      | ---          | ---  | ---  | ---          | ---      |
-| ADD INTERACTION | PUT    | ---      | ---          | ---  | ---  | ---          | ---      | --- |
-| DELETE COMMENT  | DELETE | ---      | ---          | ---  | ---  | ---          | ---      | --- |
+| ADD INTERACTION | PUT    | ---      | ---          | ---  | ---  | ---          | ---      |
+| DELETE COMMENT  | DELETE | ---      | ---          | ---  | ---  | ---          | ---      |
