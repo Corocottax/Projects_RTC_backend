@@ -18,16 +18,13 @@ projectRouter.get("/bestprojects", getBestProjects);
 projectRouter.get("/filter", filterProjects);
 projectRouter.get("/:id", getProjectById);
 projectRouter.get("/", getProjects);
-
 projectRouter.post(
   "/",
   isAuth,
   upload.fields([{ name: "imgs", maxCount: 3 }]),
   createProject
 );
-
 projectRouter.put("/interaction/:id", isAuth, addInteraction);
-
 projectRouter.put(
   "/:id",
   isAuth,
@@ -35,7 +32,6 @@ projectRouter.put(
   upload.fields([{ name: "imgs", maxCount: 3 }]),
   updateProject
 );
-
 projectRouter.delete(
   "/:id",
   isAuth,

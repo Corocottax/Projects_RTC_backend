@@ -10,11 +10,12 @@ const {
 } = require("../controllers/user");
 const userRouter = require("express").Router();
 
+
 userRouter.post("/register", isAuth, isAdmin, register);
 userRouter.post("/login", login);
+userRouter.get("/", getUsers);
+userRouter.get("/:id", getUser);
 userRouter.put("/:id", isAuth, checkUser, updateUser);
 userRouter.delete("/:id", isAuth, checkUser, deleteUser);
-userRouter.get("/:id", getUser);
-userRouter.get("/", getUsers);
 
 module.exports = userRouter;

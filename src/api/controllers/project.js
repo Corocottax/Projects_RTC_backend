@@ -17,7 +17,7 @@ const getBestProjects = async (req, res, next) => {
     const projects = await Project.find({
       createdAt: { $gte: thirtyDaysAgo, $lte: today },
     })
-      .sort({ average_rating: "desc" })
+      .sort({ averageRating: "desc" })
       .limit(3);
 
     return res.json(projects);
@@ -68,8 +68,8 @@ const filterProjects = async (req, res, next) => {
     const { page = 1 } = req.query;
 
     const query = {
-      name_user: { $regex: req.query.name || "", $options: "i" },
-      average_rating: { $gte: req.query.rating || 0 },
+      nameUser: { $regex: req.query.name || "", $options: "i" },
+      averageRating: { $gte: req.query.rating || 0 },
     };
 
     if (req.query?.type) {
@@ -143,8 +143,8 @@ const createProject = async (req, res, next) => {
       vote: req.body.vote,
     };
     newProject.user = req.user._id;
-    newProject.name_user = req.user.name;
-    newProject.average_rating = req.body.vote;
+    newProject.nameUser = req.user.name;
+    newProject.averageRating = req.body.vote;
     const project = await newProject.save();
 
     await User.findByIdAndUpdate(req.user._id.toString(), {
@@ -209,7 +209,7 @@ const addInteraction = async (req, res, next) => {
     const project = await Project.findByIdAndUpdate(
       id,
       {
-        average_rating: getAverage(oldProject, req.body.vote),
+        averageRating: getAverage(oldProject, req.body.vote),
         $push: {
           rating: rating,
           comments: req.body.comments,

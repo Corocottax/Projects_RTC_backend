@@ -4,6 +4,9 @@ const { generateSign } = require("../../utils/jwt");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
+//TODO: actualizar usuario bien
+//TODO: documentar y estudiar el funcionamiento
+
 const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
@@ -69,6 +72,7 @@ const updateUser = async (req, res, next) => {
 
     newUser._id = id;
     newUser.rol = "user";
+    newUser.password = bcrypt.hashSync(newUser.password, 10);
     newUser.comments = [...oldUser.comments, ...newUser.comments];
     newUser.projects = [...oldUser.projects, ...newUser.projects];
 

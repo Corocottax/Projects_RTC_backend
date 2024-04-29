@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const projectSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
-    name_user: { type: String, required: true },
+    nameUser: { type: String, required: true },
     imgs: [{ type: String }],
     description: { type: String, required: true, trim: true },
     type: {
@@ -17,7 +17,7 @@ const projectSchema = new mongoose.Schema(
         vote: { type: Number, min: 1, max: 5 },
       },
     ],
-    average_rating: { type: Number, required: true },
+    averageRating: { type: Number, required: true },
     comments: [{ type: mongoose.Types.ObjectId, ref: "comments" }],
     user: { type: mongoose.Types.ObjectId, ref: "users", required: true },
   },
