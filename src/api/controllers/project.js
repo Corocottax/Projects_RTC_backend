@@ -113,9 +113,18 @@ const getProjectById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const project = await Project.findById(id).populate(
-      "comments rating.user user"
-    );
+    const project = await Project.findById(id)
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "name lastName avatar",
+        },
+      })
+      .populate({
+        path: "user",
+        select: "name lastName avatar",
+      });
 
     return res.status(200).json(project);
   } catch (error) {

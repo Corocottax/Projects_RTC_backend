@@ -16,7 +16,7 @@ const getUsers = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await User.find(id).populate("projects");
+    const user = await User.findById(id).populate("projects comments");
     return res.status(200).json(user);
   } catch (error) {
     return res.status(400).json("Error en el get By name de los usuarios");

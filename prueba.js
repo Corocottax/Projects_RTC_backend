@@ -21,3 +21,5 @@ console.log(objeto.name?.slice(3, 6)); */
 }
 
 funcion(34, 34, 65, 76, 23) */
+
+console.log("👩🏾‍🤝‍👩🏼".length);

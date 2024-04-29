@@ -2,14 +2,13 @@ const Comment = require("../models/comment");
 const Project = require("../models/project");
 const User = require("../models/user");
 
-// TODO: Hilo de comentarios, cambiar estructura
-
 const createComment = async (req, res, next) => {
   try {
-    const { projectId, commentId } = req.query;
+    const { idProject, idReply } = req.query;
 
     const newComment = new Comment(req.body);
     newComment.user = req.user._id;
+    newComment.idReply = idReply;
     const comment = await newComment.save();
 
     const push = {
@@ -18,10 +17,7 @@ const createComment = async (req, res, next) => {
       },
     };
 
-    projectId
-      ? await Project.findByIdAndUpdate(projectId, push)
-      : await Comment.findByIdAndUpdate(commentId, push);
-
+    await Project.findByIdAndUpdate(idProject, push);
     await User.findByIdAndUpdate(req.user._id, push);
 
     return res.status(201).json("Comment Submited");
@@ -30,8 +26,53 @@ const createComment = async (req, res, next) => {
   }
 };
 
-const deleteComment = async (req, res, next) => {
+const addInteraction = async (req, res, next) => {
   try {
+    const { id } = req.params;
+
+    const oldComment = await Comment.findById(id);
+
+    if (
+      req.body.reaction &&
+      oldComment.reactions.find(
+        (reaction) => reaction.user.toString() === req.user._id.toString()
+      )
+    ) {
+      return res.status(400).json("Ya has reaccionado");
+    }
+
+    let reaction;
+
+    if (req.body.reaction) {
+      reaction = { reaction: req.body.reaction, user: req.user._id.toString() };
+    }
+
+    const comment = await Comment.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          reactions: reaction,
+        },
+      },
+      { new: true }
+    );
+
+    return res.json(comment);
+  } catch (error) {
+    return res.status(400).json("error");
+  }
+};
+
+const deleteCommentFromProject = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { idProject } = req.query;
+
+    const project = await Project.findByIdAndUpdate(idProject, {
+      $pull: { comments: id },
+    }, { new: true });
+
+    return res.status(200).json(project); 
   } catch (error) {
     return res.status(400).json("error");
   }
@@ -39,5 +80,6 @@ const deleteComment = async (req, res, next) => {
 
 module.exports = {
   createComment,
-  deleteComment,
+  addInteraction,
+  deleteCommentFromProject,
 };
