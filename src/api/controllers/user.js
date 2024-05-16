@@ -98,6 +98,10 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const checkSession = async (req, res, next) => {
+  return res.status(200).json({ user: req.user });
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -105,4 +109,5 @@ module.exports = {
   login,
   updateUser,
   deleteUser,
+  checkSession
 };
