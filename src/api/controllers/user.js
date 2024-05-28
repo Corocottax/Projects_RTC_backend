@@ -48,18 +48,18 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate("projects");
 
-    if (!user) return res.status(400).json("Usuario o contraseña erróneos");
+    if (!user) return res.status(400).json("Usuario o contraseña incorrectos");
 
     if (bcrypt.compareSync(password, user.password)) {
       const token = generateSign(user._id);
       return res.status(200).json({ token, user });
     } else {
-      return res.status(400).json("Usuario o contraseña erróneos");
+      return res.status(400).json("Usuario o contraseña incorrectos");
     }
   } catch (error) {
-    return res.status(400).json("Usuario o contraseña erróneos");
+    return res.status(400).json("Usuario o contraseña incorrectos");
   }
 };
 

@@ -7,7 +7,7 @@ const isAuth = async (req, res, next) => {
 
     const { id } = jwtVerify(token);
 
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate("projects");
 
     user.password = null;
     req.user = user;
