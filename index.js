@@ -15,6 +15,10 @@ app.use(cors());
 
 app.use("/api/v1", mainRouter);
 
+app.use("/ping", (req, res, next) => {
+    return res.status(200).json("pong");
+})
+
 app.use("*", (req, res, next) => {
     return res.status(404).json("Route Not Found");
 })
