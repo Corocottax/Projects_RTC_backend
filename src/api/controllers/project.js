@@ -135,8 +135,8 @@ const getProjectById = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const newProject = new Project(req.body);
-    if (req.files) {
-      newProject.imgs = req.files.imgs.map((file) => file.path);
+    if (req.secure_urls) {
+      newProject.imgs = req.secure_urls;
     }
     newProject.rating = {
       user: req.user._id.toString(),
