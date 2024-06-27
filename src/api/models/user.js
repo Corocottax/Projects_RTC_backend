@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
     avatar: { type: String },
     projects: [{ type: mongoose.Types.ObjectId, ref: "projects" }],
     comments: [{ type: mongoose.Types.ObjectId, ref: "comments" }],
+    github: { type: String, required: true }
   },
   {
     timestamps: true,

@@ -34,6 +34,14 @@ const register = async (req, res, next) => {
 
     if (userDuplicated) return res.status(400).json("Usuario ya existente");
 
+    let githubPatter = /^https:\/\/github\.com\/[A-Za-z0-9-]+$/;
+
+    if (!githubPatter.test(req.body.github)) {
+      return res
+        .status(400)
+        .json("Debes introducir el enlace del perfil de tu GitHub");
+    }
+
     newUser.password = hashPassword(req.body.password);
     const user = await newUser.save();
 
@@ -100,7 +108,7 @@ const deleteUser = async (req, res, next) => {
 
 const checkSession = async (req, res, next) => {
   return res.status(200).json({ user: req.user });
-}
+};
 
 module.exports = {
   getUsers,
@@ -109,5 +117,5 @@ module.exports = {
   login,
   updateUser,
   deleteUser,
-  checkSession
+  checkSession,
 };
