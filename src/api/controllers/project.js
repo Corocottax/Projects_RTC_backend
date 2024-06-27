@@ -18,7 +18,11 @@ const getBestProjects = async (req, res, next) => {
       createdAt: { $gte: thirtyDaysAgo, $lte: today },
     })
       .sort({ averageRating: "desc" })
-      .limit(3);
+      .limit(3)
+      .populate({
+        path: "user",
+        select: "avatar",
+      });
 
     return res.json(projects);
   } catch (error) {
@@ -145,7 +149,7 @@ const createProject = async (req, res, next) => {
     newProject.user = req.user._id;
     newProject.nameUser = req.user.name;
     newProject.averageRating = req.body.vote;
-    
+
     const project = await newProject.save();
 
     await User.findByIdAndUpdate(req.user._id.toString(), {
@@ -156,7 +160,6 @@ const createProject = async (req, res, next) => {
 
     return res.status(201).json(project);
   } catch (error) {
-    console.log(error);
     return res.status(400).json("error");
   }
 };
