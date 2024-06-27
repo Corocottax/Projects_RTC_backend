@@ -7,7 +7,7 @@ const projectSchema = new mongoose.Schema(
     imgs: [{ type: String }],
     description: { type: String, required: true, trim: true },
     link: { type: String, required: true },
-    deployLink: { type: String, required: true },
+    deployLink: { type: String, required: false },
     type: {
       type: String,
       required: true,

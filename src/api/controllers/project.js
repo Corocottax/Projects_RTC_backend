@@ -145,6 +145,7 @@ const createProject = async (req, res, next) => {
     newProject.user = req.user._id;
     newProject.nameUser = req.user.name;
     newProject.averageRating = req.body.vote;
+    
     const project = await newProject.save();
 
     await User.findByIdAndUpdate(req.user._id.toString(), {
@@ -155,6 +156,7 @@ const createProject = async (req, res, next) => {
 
     return res.status(201).json(project);
   } catch (error) {
+    console.log(error);
     return res.status(400).json("error");
   }
 };
