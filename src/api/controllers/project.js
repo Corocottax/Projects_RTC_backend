@@ -51,7 +51,11 @@ const getProjects = async (req, res, next) => {
     const projects = await Project.find()
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
       .limit(dataPerPage)
-      .sort({ createdAt: "desc" });
+      .sort({ createdAt: "desc" })
+      .populate({
+        path: "user",
+        select: "avatar",
+      });
 
     return res.status(200).json({
       info: getInfo({
