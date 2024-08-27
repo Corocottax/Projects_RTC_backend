@@ -92,7 +92,11 @@ const filterProjects = async (req, res, next) => {
     const projects = await Project.find(query)
       .skip((page > lastPage ? lastPage - 1 : page - 1) * dataPerPage)
       .limit(dataPerPage)
-      .sort({ createdAt: "desc" });
+      .sort({ createdAt: "desc" })
+      .populate({
+        path: "user",
+        select: "avatar",
+      });
 
     let queryParams = ``;
 
