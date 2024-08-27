@@ -20,7 +20,7 @@ const getUsersByName = async (req, res, next) => {
   try {
     const users = await User.find({
       name: { $regex: req.params.name || "", $options: "i" },
-    });
+    }).select("name");
     return res.status(200).json(users);
   } catch (error) {
     return res.status(400).json("Error en el get de los usuarios");
