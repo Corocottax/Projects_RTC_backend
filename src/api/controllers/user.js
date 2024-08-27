@@ -16,6 +16,17 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getUsersByName = async (req, res, next) => {
+  try {
+    const users = await User.find({
+      name: { $regex: req.params.name || "", $options: "i" },
+    });
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(400).json("Error en el get de los usuarios");
+  }
+};
+
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -118,4 +129,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkSession,
+  getUsersByName
 };

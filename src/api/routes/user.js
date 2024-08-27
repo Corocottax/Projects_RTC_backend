@@ -8,6 +8,7 @@ const {
   updateUser,
   deleteUser,
   checkSession,
+  getUsersByName,
 } = require("../controllers/user");
 const userRouter = require("express").Router();
 
@@ -17,6 +18,7 @@ userRouter.post("/login", login);
 userRouter.post("/checksession", isAuth, checkSession);
 userRouter.get("/", getUsers);
 userRouter.get("/:id", getUser);
+userRouter.get("/getbyname/:name", getUsersByName);
 userRouter.put("/:id", isAuth, checkUser, updateUser);
 userRouter.delete("/:id", isAuth, checkUser, deleteUser);
 
