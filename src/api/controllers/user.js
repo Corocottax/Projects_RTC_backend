@@ -18,8 +18,18 @@ const getUsers = async (req, res, next) => {
 
 const getUsersByName = async (req, res, next) => {
   try {
+    let name = "";
+
+    console.log("hola?");
+
+    if (req.query?.name) {
+      name = req.query.name;
+    }
+
+    console.log(name);
+
     const users = await User.find({
-      name: { $regex: req.params?.name || "", $options: "i" },
+      name: { $regex: name || "", $options: "i" },
     }).select("name");
     return res.status(200).json(users);
   } catch (error) {
