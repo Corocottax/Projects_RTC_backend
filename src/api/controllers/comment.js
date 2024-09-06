@@ -20,7 +20,7 @@ const createComment = async (req, res, next) => {
     await Project.findByIdAndUpdate(idProject, push);
     await User.findByIdAndUpdate(req.user._id, push);
 
-    return res.status(201).json("Comment Submited");
+    return res.status(201).json(comment);
   } catch (error) {
     return res.status(400).json("error");
   }
