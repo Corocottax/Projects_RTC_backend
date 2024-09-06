@@ -16,6 +16,23 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+const getUsersByName = async (req, res, next) => {
+  try {
+    let name = "";
+
+    if (req.query?.name) {
+      name = req.query.name;
+    }
+
+    const users = await User.find({
+      name: { $regex: name || "", $options: "i" },
+    }).select("name").limit(4);
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(400).json("Error en el get de los usuarios");
+  }
+};
+
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -118,4 +135,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkSession,
+  getUsersByName
 };
