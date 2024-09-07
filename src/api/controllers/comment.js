@@ -4,11 +4,11 @@ const User = require("../models/user");
 
 const createComment = async (req, res, next) => {
   try {
-    const { idProject, idReply } = req.query;
+    const { idProject, reply } = req.query;
 
     const newComment = new Comment(req.body);
     newComment.user = req.user._id;
-    newComment.idReply = idReply;
+    newComment.reply = reply;
     const comment = await newComment.save();
 
     const push = {

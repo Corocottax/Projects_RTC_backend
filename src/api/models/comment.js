@@ -10,7 +10,7 @@ const commentSchema = new mongoose.Schema(
       },
     ],
     user: { type: mongoose.Types.ObjectId, ref: "users" },
-    idReply: { type: String },
+    reply: { type: mongoose.Types.ObjectId, ref: "comments" },
   },
   {
     timestamps: true,

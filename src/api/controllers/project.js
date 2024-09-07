@@ -128,10 +128,16 @@ const getProjectById = async (req, res, next) => {
     const project = await Project.findById(id)
       .populate({
         path: "comments",
-        populate: {
-          path: "user",
-          select: "name lastName avatar",
-        },
+        populate: [
+          {
+            path: "user",
+            select: "name lastName avatar",
+          },
+          {
+            path: "reply",
+            select: "text",
+          },
+        ],
       })
       .populate({
         path: "user",
