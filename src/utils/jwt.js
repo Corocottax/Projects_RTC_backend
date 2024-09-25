@@ -6,3 +6,4 @@ const generateSign = (id) =>
 const jwtVerify = (token) => jwt.verify(token, process.env.JWT_SECRET);
 
 module.exports = { generateSign, jwtVerify };
+ 
